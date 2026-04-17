@@ -14,7 +14,7 @@ This analysis asks: **does logistics performance drive poor customer satisfactio
 
 <!-- INTERNAL NOTE: If logistics does not correlate with review scores, reframe the business question to the broader "what is driving poor customer satisfaction?" and pivot the analysis to product-level drivers. Delete this note before publishing. -->
 
-The primary thread is the relationship between delivery performance and review scores. If that relationship holds, the follow-up questions are which delivery metric matters most and whether underperformance is attributable to sellers (dispatch speed) or carriers (transit time). Geography is a secondary explanatory dimension — used to understand where problems concentrate, not as an end in itself.
+The primary thread is the relationship between delivery performance and review scores. If that relationship holds, the follow-up questions are which delivery metric matters most and whether underperformance is attributable to sellers (dispatch speed) or carriers (transit time). Geography is a secondary explanatory dimension — used to understand where problems concentrate, not as an end in itself. Based on the findings, [5 concrete recommendations for action](#recommendations) are provided.
 
 ---
 
