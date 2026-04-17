@@ -1,7 +1,7 @@
 # Olist E-Commerce SQL Analysis
 ## What Is Driving Poor Customer Satisfaction on the Olist Platform?
 
-**Tools:** SQL (SQLite) · VS Code · Python (setup only)
+**Tools:** SQL (SQLite) · VS Code · SQLTools · Python (setup only)
 **Status:** In progress
 
 ---
@@ -189,15 +189,25 @@ The seller-level correlation between average delivery delta and average review s
 
 The dataset contains 3,095 sellers, but the majority have fewer than 10 orders — consistent with Olist's model of onboarding many small and micro-sellers. Filtering to sellers with at least 10 orders (1,311 sellers) and a late delivery rate more than 1.5x the platform average (>14.4%), **126 sellers are identified as consistently underperforming on delivery promises**. The query in `02_seller_analysis.sql` generates the full list ranked by late delivery rate.
 
+### Regional analysis (`03_regional_analysis.sql`)
+
+At state level, there is a clear geographic pattern in review scores — a broadly north/south divide, with southern and southeastern states (SP, MG, PR, RS) scoring above 4.1 and northern and northeastern states (MA, AL, BA, SE) clustering below 3.9. The pattern has notable exceptions: RJ is a negative island in the south (3.87 despite being Brazil's second largest city), and RN, PB, PE form a positive island in the northeast (above 4.0 despite being in the underperforming region). The state-level correlation between average delivery delta and average review score is -0.311, almost identical to the order-level correlation, confirming that the geographic pattern in satisfaction is driven by delivery performance.
+
+However, comparing between-state variance (10.6) with within-state variance (25–270 across states) reveals that cities within the same state differ from each other far more than states differ from each other. The north/south pattern is real but misleading as a targeting framework — the actual variation in delivery performance is happening at city level, not state level. Intervention efforts should be organised at city level, not state level.
+
+**DF (Brasília) stands out as an anomaly:** high review variance but very low delivery delta variance. Delivery is consistent there, but satisfaction is not — pointing to non-logistics drivers in that market specifically.
+
 ### Recommendations
 
-The 126 sellers identified in `02_seller_analysis.sql` should be the initial focus for all interventions below — piloting with this group first allows for close monitoring before a broader platform-wide rollout.
+1. **Start with the 126 underperforming sellers** identified in `02_seller_analysis.sql` — pilot all interventions below with this group first, monitor closely, then roll out platform-wide.
 
-1. **Recalibrate delivery estimates by region.** Since Olist controls the delivery promise, estimates can be tightened on routes where carriers consistently over-deliver and buffered where they don't. The regional analysis (`03_regional_analysis.sql`) identifies where late deliveries concentrate, providing the input for this recalibration.
+2. **Organise all geographic efforts at city level, not state level.** Within-state variance in delivery performance far exceeds between-state variance — state-level targeting would miss most of the problem.
 
-2. **Identify and address underperforming carrier routes.** The carrier leg — not seller dispatch — is where lateness originates. Olist should use delivery performance data to renegotiate SLAs or switch providers on consistently underperforming routes. Carrier-level analysis is beyond the scope of this dataset (carrier identity is not recorded) but is a clear next step.
+3. **Recalibrate delivery estimates by region.** Since Olist controls the delivery promise, estimates can be tightened on routes where carriers consistently over-deliver and buffered where they don't. The regional analysis (`03_regional_analysis.sql`) identifies where late deliveries concentrate, providing the input for this recalibration.
 
-3. **Proactive customer communication on delayed orders.** Rather than reducing lateness directly, Olist can reduce its impact by notifying customers before the estimated delivery date passes. The data suggests the moment of lateness is the primary damage point — getting ahead of it with a proactive update may soften the review score impact.
+4. **Identify and address underperforming carrier routes.** The carrier leg — not seller dispatch — is where lateness originates. Olist should use delivery performance data to renegotiate SLAs or switch providers on consistently underperforming routes. Carrier-level analysis is beyond the scope of this dataset (carrier identity is not recorded) but is a clear next step.
+
+5. **Proactive customer communication on delayed orders.** Rather than reducing lateness directly, Olist can reduce its impact by notifying customers before the estimated delivery date passes. The data suggests the moment of lateness is the primary damage point — getting ahead of it with a proactive update may soften the review score impact.
 
 ---
 
